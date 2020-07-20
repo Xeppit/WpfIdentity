@@ -34,7 +34,7 @@ namespace WpfIdentity.IdentityServer
                 //    flushToDiskInterval: TimeSpan.FromSeconds(1))
                 .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}", theme: AnsiConsoleTheme.Code)
                 .CreateLogger();
-
+            
             try
             {
                 var seed = args.Contains("/seed");
