@@ -35,9 +35,11 @@ namespace WpfIdentity.IdentityServer
                     AllowedCorsOrigins = {"https://localhost:5001"},
                     RequirePkce = true,
                     RequireClientSecret = false,
-                    RedirectUris = {"https://localhost:5001/authentication/login-callback"},
-                    PostLogoutRedirectUris = {"https://localhost:5001/"},
-                    AllowedScopes = {"openid", "profile", "email", "api"}
+                    RedirectUris = {"https://notused"},
+                    PostLogoutRedirectUris = {"https://notused"},
+                    AllowedScopes = {"openid", "profile", "email", "api"},
+                    AllowOfflineAccess = true,
+                    RefreshTokenUsage = TokenUsage.ReUse
                 }
             };
     }
