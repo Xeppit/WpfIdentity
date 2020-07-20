@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IdentityModel.Client;
 using IdentityModel.OidcClient;
+using Newtonsoft.Json;
 
 namespace WpfIdentity.Wpf
 {
@@ -60,9 +62,26 @@ namespace WpfIdentity.Wpf
             }
             else
             {
+                var Http = new HttpClient();
+                Http.SetBearerToken(result.AccessToken);
+
+                var response = await Http.GetAsync("https://localhost:5001/WeatherForecast");
+                if (!response.IsSuccessStatusCode) throw new Exception(response.StatusCode.ToString());
+                var apiResult = JsonConvert.DeserializeObject<List<WeatherForecast>>(await response.Content.ReadAsStringAsync());
+
                 var name = result.User.Identity.Name;
                 Message.Text = $"Hello {name}";
             }
         }
+    }
+    public class WeatherForecast
+    {
+        public DateTime Date { get; set; }
+
+        public int TemperatureC { get; set; }
+
+        public string Summary { get; set; }
+
+        public int TemperatureF { get; set; }// Modified Line
     }
 }
